@@ -12,5 +12,11 @@ export default function getImagesByQuery(query) {
       orientation: 'horizontal',
       safesearch: true,
     },
-  });
+  })
+    .then(({ data }) => {
+      return data.hits;
+    })
+    .catch(error => {
+      return error.message;
+    });
 }

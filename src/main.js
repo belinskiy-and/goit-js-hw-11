@@ -31,9 +31,11 @@ function handleSubmit(e) {
 
   showLoader();
 
-  getImagesByQuery(searchText)
-    .then(({ data }) => {
-      if (data.hits.length === 0) {
+  const response = getImagesByQuery(searchText);
+
+  response
+    .then(images => {
+      if (images.length === 0) {
         iziToast.error({
           message:
             'Sorry, there are no images matching your search query. Please try again!',
@@ -42,11 +44,11 @@ function handleSubmit(e) {
 
         return;
       }
-      createGallery(data.hits);
+      createGallery(images);
     })
     .catch(error => {
       iziToast.error({
-        message: error.message,
+        message: error,
         position: 'topRight',
       });
     })
